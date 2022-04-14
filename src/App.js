@@ -1,57 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import ReadingPage from "./pages/ReadingPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import BookDetailPage from "./pages/BookDetailPage";
+import PublicLayout from "./layout/PublicLayout";
+import MThemeProvider from "./theme/MThemeProvider";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <BrowserRouter>
+      <MThemeProvider>
+        <Routes>
+          <Route path="/" element={<PublicLayout />}>
+            <Route index element={<HomePage />} />
+            <Route path="books/:id" element={<BookDetailPage />} />
+            <Route path="reading" element={<ReadingPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Route>
+        </Routes>
+      </MThemeProvider>
+    </BrowserRouter>
   );
 }
 
